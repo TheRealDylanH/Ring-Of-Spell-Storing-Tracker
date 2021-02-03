@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+</head>    
+    
+<style>
+    
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+    .background-overlay{
+        background-color: #466BF8;
+        position: absolute;
+        width:100vw;
+        top:0;
+        left: 0;
+        z-index: 2;
+        opacity: 80%;
+        box-sizing: border-box;
+        height: 100vh;
+    }
+    
+    .background-image{
+        background:url(https://media-waterdeep.cursecdn.com/avatars/thumbnails/7/364/1000/1000/636284761492570136.jpeg) no-repeat;
+        
+        background-position: center;
+        position: absolute;
+        width:100vw;
+        height: 100vh;
+        top:0;
+        left: 0;
+        z-index: 1;
+        box-sizing: border-box;
+    }
+    
+    .slot-container{
+        background: rgba(0,0,0,0.00);
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        position: absolute;
+        width:100vw;
+        top:0;
+        left: 0;
+        box-sizing: border-box;
+        z-index: 3;
+    }
+    
+    .slot{
+        background-color: #f6f6f7;
+        height: 10vh;
+        width: 50%;
+        margin:20px auto;
+        border-radius: 100px;
+        display: block;
+        position: relative;
+        -webkit-transition: background-color 1000ms ease-out;
+        -ms-transition: background-color 1000ms ease-out;
+        transition: background-color 1000ms ease-out;
+    }
+    
+    .altBackground{
+        background-color: #091326;
+        -webkit-transition: background-color 1000ms ease-out;
+        -ms-transition: background-color 1000ms ease-out;
+        transition: background-color 1000ms ease-out;
+        color:white;
+    }
+    
+    .altBackground input[type=text]::placeholder{
+        color:rgba(255,255,255,0.55);
+        -webkit-transition: background-color 1000ms ease-out;
+        -ms-transition: background-color 1000ms ease-out;
+        transition: background-color 1000ms ease-out;
+    }
+    
+     .altBackground input[type=text]{
+        color:white;
+        -webkit-transition: background-color 1000ms ease-out;
+        -ms-transition: background-color 1000ms ease-out;
+        transition: background-color 1000ms ease-out;
+    }
+    
+    .altBackground button{
+        color:white;
+        -webkit-transition: background-color 1000ms ease-out;
+        -ms-transition: background-color 1000ms ease-out;
+        transition: background-color 1000ms ease-out;
+    }
+    
+    
+    h1{
+        font-family: Roboto;
+        color: #f6f6f7;
+        letter-spacing: 2px;
+        display: block;
+        margin:0 auto;
+        text-align: center;
+    }
+    
+    input[type=text]{
+        border: 0;
+        background-color: rgba(0,0,0,0.00);
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        left: 70px;
+        font-size: 24px;
+        width: 70%;
+        font-family: Roboto;
+        font-weight: 300;
+        
+    }
+    
+    input[type=text]:focus{
+        outline: none !important;
+    }
+    
+    input[type=checkbox]{
+        position: absolute;
+        top:37%;
+        transform: translateY(-50%);
+        left: 5%;
+        transform: scale(1.5);
+        color:red;
+    }
+    
+    button{
+        background-color: rgba(0,0,0,0.00);
+        border: none;
+        color: #466BF8;
+        font-family: Roboto;
+        font-weight: 400;
+        text-decoration: underline;
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        right: 15px;
+        cursor: pointer;
+    }
+    
+    button:hover{
+        font-weight: bold;
+    }
+    
+</style>    
+    
+<body>
+<div class="background-image"></div>  
+<div class="background-overlay"></div>
+<div class="slot-container">
+    
+    <h1>Ring of Spell Storing Tracker</h1>
+    
+    
+    <div class="slot slotContainer1">
+    
+        <input type="checkbox" id="cb1" name="cb1" required /> 
+        <input type="text" id="slot1" name="slot1" placeholder="Spell Name" required /> 
+        <button onclick="searchSpell1()">Details</button>
+    
+    </div>
+    
+
+    <div class="slot slotContainer2">
+        
+        <input type="checkbox" id="cb2" name="cb2" required />    
+        <input type="text" id="slot2" name="slot2" placeholder="Spell Name" required />
+        <button onclick="searchSpell2()">Details</button>
+    
+    </div>
+
+    <div class="slot slotContainer3">
+        
+        <input type="checkbox" id="cb3" name="cb3" required />    
+        <input type="text" id="slot3" name="slot3" placeholder="Spell Name" required />
+        <button onclick="searchSpell3()">Details</button>
+    
+    </div>
+    
+    <div class="slot slotContainer4">
+        
+        <input type="checkbox" id="cb4" name="cb5" required />    
+        <input type="text" id="slot4" name="slot4" placeholder="Spell Name" required />  
+        <button onclick="searchSpell4()">Details</button>
+    
+    </div>
+    
+    <div class="slot slotContainer5">
+        
+        <input type="checkbox" id="cb5" name="cb5" required />    
+        <input type="text" id="slot5" name="slot5" placeholder="Spell Name" required />  
+        <button onclick="searchSpell5()">Details</button>
+
+    </div>
+    
+</div>
+    
+<script>
+// Check browser support
+$(document).ready(function() {
+		$(window).unload(saveSettings);
+		loadSettings();
+        
+       if ($('#cb1').is(':checked')) {
+        $('div.slotContainer1').addClass("altBackground");
+    } else {
+        $('div.slotContainer1').removeClass("altBackground");
+
+    }
+    
+    if ($('#cb2').is(':checked')) {
+        $('div.slotContainer2').addClass("altBackground");
+    } else {
+        $('div.slotContainer2').removeClass("altBackground");
+    }
+    
+    if ($('#cb3').is(':checked')) {
+        $('div.slotContainer3').addClass("altBackground");
+    } else {
+        $('div.slotContainer3').removeClass("altBackground");
+    }
+    
+    if ($('#cb4').is(':checked')) {
+        $('div.slotContainer4').addClass("altBackground");
+    } else {
+        $('div.slotContainer4').removeClass("altBackground");
+    }
+    
+    if ($('#cb5').is(':checked')) {
+        $('div.slotContainer5').addClass("altBackground");
+    } else {
+        $('div.slotContainer5').removeClass("altBackground");
+    }
+
+        
+	});
+    
+function searchSpell1(){
+    var str = $('#slot1').val();
+    
+    var search = str.replace(/\s/g, "-");
+    
+    window.open("https://www.dndbeyond.com/spells/" + search, '_blank');
+}
+    
+function searchSpell2(){
+    var str2 = $('#slot2').val();
+    
+    var search2 = str2.replace(/\s/g, "-");
+    
+    window.open("https://www.dndbeyond.com/spells/" + search2, '_blank');
+}
+
+    
+function searchSpell3(){
+    var str3 = $('#slot3').val();
+    
+    var search3 = str3.replace(/\s/g, "-");
+    
+    window.open("https://www.dndbeyond.com/spells/" + search3, '_blank');
+}
+    
+    
+function searchSpell4(){
+    var str4 = $('#slot4').val();
+    
+    var search4 = str4.replace(/\s/g, "-");
+    
+    window.open("https://www.dndbeyond.com/spells/" + search4, '_blank');
+}
+    
+function searchSpell5(){
+    var str5 = $('#slot5').val();
+    
+    var search5 = str5.replace(/\s/g, "-");
+    
+    window.open("https://www.dndbeyond.com/spells/" + search5, '_blank');
+}
+    
+    
+    
+function loadSettings() {
+    $('#slot1').val(localStorage.slot1);
+    $('#slot2').val(localStorage.slot2);
+    $('#slot3').val(localStorage.slot3);
+    $('#slot4').val(localStorage.slot4);
+    $('#slot5').val(localStorage.slot5);
+    
+    
+    var checked = JSON.parse(localStorage.getItem("cb1"));
+    document.getElementById("cb1").checked = checked;
+    
+    var checked2 = JSON.parse(localStorage.getItem("cb2"));
+    document.getElementById("cb2").checked = checked2;
+    
+    var checked3 = JSON.parse(localStorage.getItem("cb3"));
+    document.getElementById("cb3").checked = checked3;
+   
+    var checked4 = JSON.parse(localStorage.getItem("cb4"));
+    document.getElementById("cb4").checked = checked4;
+    
+    var checked5 = JSON.parse(localStorage.getItem("cb5"));
+    document.getElementById("cb5").checked = checked5;
+}
+    
+function saveSettings() {
+    localStorage.slot1 = $('#slot1').val();
+    localStorage.slot2 = $('#slot2').val();
+    localStorage.slot3 = $('#slot3').val();
+    localStorage.slot4 = $('#slot4').val();
+    localStorage.slot5 = $('#slot5').val();
+    
+   var checkbox = document.getElementById("cb1");
+   localStorage.setItem("cb1", checkbox.checked);
+    
+   var checkbox2 = document.getElementById("cb2");
+   localStorage.setItem("cb2", checkbox2.checked);
+    
+   var checkbox3 = document.getElementById("cb3");
+   localStorage.setItem("cb3", checkbox3.checked);  
+    
+   var checkbox4 = document.getElementById("cb4");
+   localStorage.setItem("cb4", checkbox4.checked);
+    
+   var checkbox5 = document.getElementById("cb5");
+   localStorage.setItem("cb5", checkbox5.checked);
+    
+
+
+}    
+
+$('#cb1').change(function(){
+    if($(this).is(":checked")) {
+        $('div.slotContainer1').addClass("altBackground");
+    } else {
+        $('div.slotContainer1').removeClass("altBackground");
+        document.getElementById("slot1").value = "";
+    }
+ });
+    
+$('#cb2').change(function(){
+    if($(this).is(":checked")) {
+        $('div.slotContainer2').addClass("altBackground");
+    } else {
+        $('div.slotContainer2').removeClass("altBackground");
+        document.getElementById("slot2").value = "";
+    }
+ });    
+    
+$('#cb3').change(function(){
+    if($(this).is(":checked")) {
+        $('div.slotContainer3').addClass("altBackground");
+    } else {
+        $('div.slotContainer3').removeClass("altBackground");
+        document.getElementById("slot3").value = "";
+    }
+ });
+    
+$('#cb4').change(function(){
+    if($(this).is(":checked")) {
+        $('div.slotContainer4').addClass("altBackground");
+    } else {
+        $('div.slotContainer4').removeClass("altBackground");
+        document.getElementById("slot4").value = "";
+    }
+ });
+
+$('#cb5').change(function(){
+    if($(this).is(":checked")) {
+        $('div.slotContainer5').addClass("altBackground");
+    } else {
+        $('div.slotContainer5').removeClass("altBackground");
+        document.getElementById("slot5").value = "";
+    }
+ });
+
+</script>
+
+</body>
+</html>
